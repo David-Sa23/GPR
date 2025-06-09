@@ -81,3 +81,8 @@ ModuleNotFoundError: No module named 'flask'
 
 
 sudo -E venv/bin/python app_David2.p
+
+pip install flask scapy pandas scikit-learn
+sudo -E venv/bin/python app_David2.py
+python -c "import flask; print(flask.__version__)"
+
