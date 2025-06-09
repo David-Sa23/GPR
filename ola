@@ -19,3 +19,16 @@ externally-managed-environment
 
 note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
 hint: See PEP 668 for the detailed specification.
+
+
+python3 -m venv venv
+
+source venv/bin/activate
+
+which python
+# Deve mostrar algo como: /caminho/venv/bin/python
+
+pip install mac-vendor-lookup
+
+
+sudo venv/bin/python app_David2.py
