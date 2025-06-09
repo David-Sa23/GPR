@@ -5,15 +5,62 @@
     <title>Monitor de Tráfego</title>
     <script src="/static/script.js" defer></script>
     <style>
-        body { font-family: Arial; padding: 20px; }
-        .status { font-size: 1.2em; margin-top: 20px; }
-        .normal { color: green; }
-        .anomalo { color: red; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .stop {
+            background-color: #dc3545;
+        }
+        .stop:hover {
+            background-color: #a71d2a;
+        }
+        .packet-list {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+        .packet {
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 6px;
+        }
+        .normal {
+            color: green;
+        }
+        .anomalo {
+            color: red;
+        }
     </style>
 </head>
 <body>
-    <h1>Monitor de Tráfego em Tempo Real</h1>
-    <button onclick="iniciarCaptura()">Iniciar Captura</button>
-    <div class="status" id="status">À espera de dados...</div>
+    <h1>📡 Monitor de Tráfego em Tempo Real</h1>
+    <button onclick="iniciarCaptura()">▶️ Iniciar Captura</button>
+    <button class="stop" onclick="pararCaptura()">⛔ Parar Captura</button>
+
+    <div class="packet-list" id="packetList">
+        <p><em>Aguardando pacotes...</em></p>
+    </div>
 </body>
 </html>

@@ -1,8 +1,17 @@
+let intervalId = null;
+
 function iniciarCaptura() {
     fetch('/start')
         .then(() => {
-            document.getElementById('status').innerText = "Captura iniciada...";
-            atualizar();
+            if (intervalId) clearInterval(intervalId);
+            intervalId = setInterval(atualizar, 1000);
+        });
+}
+
+function pararCaptura() {
+    fetch('/stop')
+        .then(() => {
+            if (intervalId) clearInterval(intervalId);
         });
 }
 
@@ -10,18 +19,25 @@ function atualizar() {
     fetch('/latest')
         .then(res => res.json())
         .then(data => {
-            if (data && data.size) {
-                const status = document.getElementById('status');
-                const isAnomaly = data.prediction === 1;
-                status.innerHTML = `
-                    📦 Tamanho: ${data.size}<br>
-                    📡 Protocolo: ${data.protocol}<br>
-                    ⏱ Freq: ${data.frequency} pkt/s<br>
-                    Resultado: <span class="${isAnomaly ? 'anomalo' : 'normal'}">
-                        ${isAnomaly ? '🔴 Anómalo' : '🟢 Normal'}
+            const lista = document.getElementById('packetList');
+            lista.innerHTML = '';
+
+            if (data.length === 0) {
+                lista.innerHTML = '<p><em>Nenhum pacote ainda...</em></p>';
+                return;
+            }
+
+            data.slice().reverse().forEach(pacote => {
+                const div = document.createElement('div');
+                div.className = 'packet';
+                div.innerHTML = `
+                    📥 <strong>${pacote.src}</strong> → <strong>${pacote.dst}</strong><br>
+                    📦 Tamanho: ${pacote.size} bytes | Protocolo: ${pacote.protocol} | Freq: ${pacote.frequency} pkt/s<br>
+                    Resultado: <span class="${pacote.prediction === 1 ? 'anomalo' : 'normal'}">
+                        ${pacote.prediction === 1 ? '🔴 Anómalo' : '🟢 Normal'}
                     </span>
                 `;
-            }
-            setTimeout(atualizar, 1000);
+                lista.appendChild(div);
+            });
         });
 }
