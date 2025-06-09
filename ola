@@ -77,3 +77,7 @@ Traceback (most recent call last):
   File "/home/admin/Desktop/projet_raspberryV2/app_ddavid/GPR-main/teste2/app_David2.py", line 1, in <module>
     from flask import Flask, render_template, jsonify
 ModuleNotFoundError: No module named 'flask'
+
+
+
+sudo -E venv/bin/python app_David2.p
