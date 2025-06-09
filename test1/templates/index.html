@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Monitor de Tráfego</title>
+    <script src="/static/script.js" defer></script>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .status { font-size: 1.2em; margin-top: 20px; }
+        .normal { color: green; }
+        .anomalo { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Monitor de Tráfego em Tempo Real</h1>
+    <button onclick="iniciarCaptura()">Iniciar Captura</button>
+    <div class="status" id="status">À espera de dados...</div>
+</body>
+</html>
