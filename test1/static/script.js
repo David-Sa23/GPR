@@ -41,3 +41,18 @@ function atualizar() {
             });
         });
 }
+
+function carregarMetricas() {
+    fetch('/metrics')
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('acc').innerText = data.accuracy;
+            document.getElementById('prec').innerText = data.precision;
+            document.getElementById('rec').innerText = data.recall;
+            document.getElementById('f1').innerText = data.f1;
+        });
+}
+
+window.onload = () => {
+    carregarMetricas();
+}

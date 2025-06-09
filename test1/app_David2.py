@@ -1,10 +1,10 @@
-# app_David2.py
 from flask import Flask, render_template, jsonify
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score, classification_report
 from scapy.all import sniff, IP
 import threading
 
@@ -57,8 +57,7 @@ def predict_realtime(packet):
             "prediction": pred
         })
 
-        # Limitar histórico a 100 entradas
-        latest_predictions = latest_predictions[-100:]
+        latest_predictions[:] = latest_predictions[-100:]
 
 @app.route('/')
 def index():
@@ -82,6 +81,16 @@ def stop_sniff():
 @app.route('/latest')
 def get_latest():
     return jsonify(latest_predictions)
+
+@app.route('/metrics')
+def get_metrics():
+    report = classification_report(y_test, mlp.predict(X_test), output_dict=True)
+    return jsonify({
+        "accuracy": round(report["accuracy"] * 100, 2),
+        "precision": round(report["1"]["precision"] * 100, 2),
+        "recall": round(report["1"]["recall"] * 100, 2),
+        "f1": round(report["1"]["f1-score"] * 100, 2)
+    })
 
 if __name__ == '__main__':
     app.run(debug=True)

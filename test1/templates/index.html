@@ -9,6 +9,7 @@
             font-family: 'Segoe UI', sans-serif;
             padding: 30px;
             background: #f5f5f5;
+            position: relative;
         }
         h1 {
             margin-bottom: 20px;
@@ -52,9 +53,29 @@
         .anomalo {
             color: red;
         }
+        .metrics-box {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: #ffffffcc;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+            font-size: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
+    <div class="metrics-box" id="metricsBox">
+        <strong>Métricas do Modelo:</strong><br>
+        Accuracy: <span id="acc">...</span>%<br>
+        Precision: <span id="prec">...</span>%<br>
+        Recall: <span id="rec">...</span>%<br>
+        F1-Score: <span id="f1">...</span>%
+    </div>
+
     <h1>📡 Monitor de Tráfego em Tempo Real</h1>
     <button onclick="iniciarCaptura()">▶️ Iniciar Captura</button>
     <button class="stop" onclick="pararCaptura()">⛔ Parar Captura</button>
